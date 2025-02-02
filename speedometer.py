@@ -1,4 +1,5 @@
 import plotly.graph_objects as go
+import pandas 
 
 # Define budget and actual spending
 budget = 3200  # Total budget
