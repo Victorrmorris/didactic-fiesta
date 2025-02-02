@@ -1,5 +1,4 @@
 import plotly.graph_objects as go
-import pandas 
 
 # Define budget and actual spending
 budget = 3200  # Total budget
@@ -11,7 +10,7 @@ fig = go.Figure(go.Indicator(
     value=actual_spending,
     title={"text": "Budget vs. Actual Spending"},
     gauge={
-        "axis": {"range": [0, budget]},
+        "axis": {"range": [0, budget], "tickvals": [0, budget * 0.5, budget], "ticktext": ["0", "50%", "100%"]},
         "bar": {"color": "blue"},  # Actual spending indicator
         "steps": [
             {"range": [0, budget * 0.7], "color": "lightgreen"},  # Safe zone
