@@ -1,3 +1,4 @@
+import streamlit as st
 import plotly.graph_objects as go
 
 # Define budget and actual spending
@@ -25,5 +26,9 @@ fig = go.Figure(go.Indicator(
     }
 ))
 
-# Show the gauge chart
-fig.show()
+# Streamlit App
+st.title("Personal Budget Tracker")
+st.subheader("Gauge Chart - Budget vs. Actual Spending")
+
+# Display Plotly gauge chart in Streamlit
+st.plotly_chart(fig)
