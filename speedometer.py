@@ -33,3 +33,13 @@ st.subheader("Gauge Chart - Budget Utilization")
 
 # Display Plotly gauge chart in Streamlit
 st.plotly_chart(fig)
+
+# Add an explanation below the gauge chart
+st.markdown("""
+### **What Does This Mean?**
+- You have spent **{:.1f}%** of your budget.
+- The **green zone (0-70%)** means you're within a safe spending range.
+- The **yellow zone (70-90%)** means you are nearing your budget limit.
+- The **red zone (90-100%)** is a danger zone—you're at risk of overspending.
+- The **black indicator** shows your current budget usage.
+""".format(percentage_spent))
