@@ -1,45 +1,43 @@
 import streamlit as st
 import plotly.graph_objects as go
 
-# Define budget and actual spending
-budget = 3200  # Total budget
-actual_spending = 3166  # Actual expenses
-percentage_spent = (actual_spending / budget) * 100  # Calculate percentage
+# Define categories and spending values
+categories = ["Income", "Rent", "Groceries", "Utilities", "Entertainment", "Education", "Transportation"]
+amounts = [3200, 1800, 846, 179, 155, 124, 63]  # Budget allocation
 
-# Create improved gauge chart
-fig = go.Figure(go.Indicator(
-    mode="gauge+number",
-    value=percentage_spent,
-    title={"text": "Budget Utilization (%)"},
-    gauge={
-        "axis": {"range": [0, 100], "tickvals": [0, 50, 100], "ticktext": ["0%", "50%", "100%"]},
-        "bar": {"color": "white"},  # White needle for better contrast
-        "steps": [
-            {"range": [0, 70], "color": "lightgreen"},  # Safe zone
-            {"range": [70, 90], "color": "yellow"},  # Warning zone
-            {"range": [90, 100], "color": "red"}  # Over-budget zone
-        ],
-        "threshold": {
-            "line": {"color": "red", "width": 4},  # Red line as spending threshold
-            "thickness": 0.8,
-            "value": percentage_spent  # Show actual spending level
-        }
-    }
+# Define source (where the money is coming from) and target (where it's going)
+source = [0, 0, 0, 0, 0, 0]  # All expenses come from "Income"
+target = [1, 2, 3, 4, 5, 6]  # The corresponding spending categories
+
+# Create Sankey diagram
+fig = go.Figure(go.Sankey(
+    node=dict(
+        pad=15,
+        thickness=20,
+        line=dict(color="black", width=0.5),
+        label=categories,
+        color=["blue", "red", "green", "purple", "orange", "cyan", "pink"]
+    ),
+    link=dict(
+        source=source,
+        target=target,
+        value=amounts[1:],  # Exclude income since it's the source
+        color=["red", "green", "purple", "orange", "cyan", "pink"]
+    )
 ))
 
 # Streamlit App
 st.title("Personal Budget Tracker")
-st.subheader("Gauge Chart - Budget Utilization")
+st.subheader("Sankey Diagram - Budget Allocation")
 
-# Display Plotly gauge chart in Streamlit
+# Display Plotly Sankey chart in Streamlit
 st.plotly_chart(fig)
 
-# Add an explanation below the gauge chart
+# Add an explanation below the Sankey diagram
 st.markdown("""
-### **What Does This Mean?**
-- You have spent **{:.1f}%** of your budget.
-- The **green zone (0-70%)** means you're within a safe spending range.
-- The **yellow zone (70-90%)** means you are nearing your budget limit.
-- The **red zone (90-100%)** is a danger zone—you're at risk of overspending.
-- The **white indicator** shows your current budget usage.
-""".format(percentage_spent))
+### **How to Read This Sankey Diagram**
+- The **left side (Income)** represents the total available budget ($3200).
+- The **flows (arrows)** show how money is allocated across different spending categories.
+- The **thicker arrows** indicate higher spending amounts (e.g., Rent takes the largest portion).
+- The **right side (categories)** represents where your money is being spent.
+""")
