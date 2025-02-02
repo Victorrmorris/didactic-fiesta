@@ -13,7 +13,7 @@ fig = go.Figure(go.Indicator(
     title={"text": "Budget Utilization (%)"},
     gauge={
         "axis": {"range": [0, 100], "tickvals": [0, 50, 100], "ticktext": ["0%", "50%", "100%"]},
-        "bar": {"color": "purple"},  # Purple needle for better contrast
+        "bar": {"color": "white"},  # White needle for better contrast
         "steps": [
             {"range": [0, 70], "color": "lightgreen"},  # Safe zone
             {"range": [70, 90], "color": "yellow"},  # Warning zone
@@ -41,5 +41,5 @@ st.markdown("""
 - The **green zone (0-70%)** means you're within a safe spending range.
 - The **yellow zone (70-90%)** means you are nearing your budget limit.
 - The **red zone (90-100%)** is a danger zone—you're at risk of overspending.
-- The **purple indicator** shows your current budget usage.
+- The **white indicator** shows your current budget usage.
 """.format(percentage_spent))
